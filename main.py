@@ -8,3 +8,7 @@ async def root():
 @app.get("/test")
 async def root():
     return "test"
+
+@app.get("/test2")
+async def root():
+    return "test2"
