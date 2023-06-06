@@ -17,6 +17,10 @@ async def test2():
 async def test3():
     return "test3"
 
+@app.get("/test4")
+async def test4():
+    return "test4"
+
 # 재기동 방법
 # git pull origin master
 # 1.pkill -9 gunicorn
