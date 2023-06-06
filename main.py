@@ -28,13 +28,12 @@ async def test2():
 async def test3():
     return "test3"
 
-@app.get("/test4")
+@app.post("/test4")
 async def test4():
     cursor = db.cursor(pymysql.cursors.DictCursor)
     sql = "select * from mem_cash"
     cursor.execute(sql)
     result = cursor.fetchall()
-    print(result)
     db.close()
     return result
 
