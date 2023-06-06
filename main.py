@@ -1,5 +1,16 @@
 from fastapi import FastAPI
+import pymysql
 app = FastAPI()
+
+# DB 연결
+db = pymysql.connect(
+    host='ec2-52-78-81-178.ap-northeast-2.compute.amazonaws.com', 
+    user='root', 
+    password='acorns4032', 
+    db='gameapi', 
+    charset='utf8', 
+    port=3306
+    )
 
 @app.get("/")
 async def root():
@@ -19,7 +30,13 @@ async def test3():
 
 @app.get("/test4")
 async def test4():
-    return "test4"
+    cursor = db.cursor(pymysql.cursors.DictCursor)
+    sql = "select * from mem_cash"
+    cursor.execute(sql)
+    result = cursor.fetchall()
+    print(result)
+    db.close()
+    return result
 
 # 재기동 방법
 # git pull origin master
