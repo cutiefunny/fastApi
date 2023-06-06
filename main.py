@@ -18,6 +18,7 @@ async def test3():
     return "test3"
 
 # 재기동 방법
+# git pull origin master
 # 1.pkill -9 gunicorn
 # 2.cd fastapi
 # 3.gunicorn -k uvicorn.workers.UvicornWorker --access-logfile ./gunicorn-access.log main:app --bind
