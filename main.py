@@ -53,7 +53,7 @@ async def member(user: User):
 @app.post("/getBalance")
 async def userYn(user: User):
     cursor = db.cursor(pymysql.cursors.DictCursor)
-    sql = "select cashAmt from member where memId = '%s' and siteId = '%s'"
+    sql = "select cashAmt from mem_cash where memId = %s and siteId = %s"
     cursor.execute(sql, (user.memId, user.siteId))
     result = cursor.fetchall()
     cursor.close()
