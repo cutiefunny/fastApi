@@ -47,7 +47,18 @@ async def member(user: User):
         args.append(user.siteId)
     cursor.execute(sql, (args))
     result = cursor.fetchall()
+    cursor.close()
     return result
+
+@app.post("/getBalance/")
+async def userYn(user: User):
+    cursor = db.cursor(pymysql.cursors.DictCursor)
+    sql = "select cashAmt from member where memId = %s and siteId = %s"
+    cursor.execute(sql, (user.memId, user.siteId))
+    result = cursor.fetchall()
+    cursor.close()
+    return result
+
 # 재기동 방법
 # git pull origin master
 # 1.pkill -9 gunicorn
