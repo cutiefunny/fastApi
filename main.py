@@ -1,8 +1,18 @@
 from fastapi import FastAPI
 from typing import Optional
 from pydantic import BaseModel
+from fastapi.middleware.cors import CORSMiddleware
 import pymysql
 app = FastAPI()
+
+#cors 설정
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:8005","http://64.176.42.251:8005"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 # DB 연결
 db = pymysql.connect(
