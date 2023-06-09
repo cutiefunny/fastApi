@@ -34,7 +34,7 @@ async def test2():
 async def test3():
     return "test3"
 
-@app.post("/member/")
+@app.post("/member")
 async def member(user: User):
     args = []
     cursor = db.cursor(pymysql.cursors.DictCursor)
@@ -50,11 +50,20 @@ async def member(user: User):
     cursor.close()
     return result
 
-@app.post("/getBalance/")
+@app.post("/getBalance")
 async def userYn(user: User):
     cursor = db.cursor(pymysql.cursors.DictCursor)
     sql = "select cashAmt from member where memId = %s and siteId = %s"
     cursor.execute(sql, (user.memId, user.siteId))
+    result = cursor.fetchall()
+    cursor.close()
+    return result
+
+@app.get("/members")
+async def member():
+    cursor = db.cursor(pymysql.cursors.DictCursor)
+    sql = "select * from member"
+    cursor.execute(sql)
     result = cursor.fetchall()
     cursor.close()
     return result
