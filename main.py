@@ -65,7 +65,8 @@ async def userYn(user: User):
     cursor = db.cursor(pymysql.cursors.DictCursor)
     sql = "select cashAmt from mem_cash where memId = %s and siteId = %s"
     cursor.execute(sql, (user.memId, user.siteId))
-    result = cursor.fetchall()
+    temp_result = cursor.fetchall()
+    result = temp_result[0]['cashAmt']
     cursor.close()
     return result
 
