@@ -16,7 +16,7 @@ app.add_middleware(
 
 # DB 연결
 db = pymysql.connect(
-    host='ec2-52-78-81-178.ap-northeast-2.compute.amazonaws.com', 
+    host='ec2-3-35-214-62.ap-northeast-2.compute.amazonaws.com', 
     user='root', 
     password='acorns4032', 
     db='gameapi', 
