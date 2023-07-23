@@ -39,7 +39,7 @@ class User(BaseModel):
 
 @app.get("/")
 async def root():
-    return {"message": "Hello World"}
+    return {"message": "github Action"}
 
 @app.get("/test")
 async def test():
