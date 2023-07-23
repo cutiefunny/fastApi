@@ -43,7 +43,7 @@ async def root():
 
 @app.get("/test")
 async def test():
-    return "test"
+    return "test github action"
 
 @app.post("/member")
 async def member(user: User):
