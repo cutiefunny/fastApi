@@ -1,4 +1,4 @@
-name: cutiefunny/fastApi
+name: cutiefunny/fastapi
 
 on:
   push:
@@ -7,7 +7,7 @@ on:
 env:
   DOCKER_IMAGE: ghcr.io/${{ github.actor }}/chargingpot
   VERSION: ${{ github.sha }}
-  NAME: cutiefunny/fastApi
+  NAME: cutiefunny/fastapi
 
 jobs:
   build:
