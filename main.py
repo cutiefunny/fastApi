@@ -15,11 +15,20 @@ app.add_middleware(
 )
 
 # DB 연결
+# db = pymysql.connect(
+#     host='ec2-3-35-214-62.ap-northeast-2.compute.amazonaws.com', 
+#     user='root', 
+#     password='acorns4032', 
+#     db='gameapi', 
+#     charset='utf8', 
+#     port=3306
+#     )
+
 db = pymysql.connect(
-    host='ec2-3-35-214-62.ap-northeast-2.compute.amazonaws.com', 
-    user='root', 
-    password='acorns4032', 
-    db='gameapi', 
+    host='musclecat-rds.cg4uejktsucz.ap-southeast-2.rds.amazonaws.com', 
+    user='admin', 
+    password='ghks1015!^', 
+    db='db_test', 
     charset='utf8', 
     port=3306
     )
@@ -35,14 +44,6 @@ async def root():
 @app.get("/test")
 async def test():
     return "test"
-
-@app.get("/test2")
-async def test2():
-    return "test2"
-
-@app.get("/test3")
-async def test3():
-    return "test3"
 
 @app.post("/member")
 async def member(user: User):
@@ -73,7 +74,7 @@ async def userYn(user: User):
 @app.get("/members")
 async def member():
     cursor = db.cursor(pymysql.cursors.DictCursor)
-    sql = "select * from member"
+    sql = "select * from tb_test"
     cursor.execute(sql)
     result = cursor.fetchall()
     cursor.close()
