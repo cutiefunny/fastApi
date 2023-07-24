@@ -3,7 +3,46 @@ from typing import Optional
 from pydantic import BaseModel
 from fastapi.middleware.cors import CORSMiddleware
 import pymysql
+import logging
 app = FastAPI()
+
+# 1. logger 생성
+logger = logging.getLogger("main")
+# 2. logger 레벨 설정
+logger.setLevel(logging.DEBUG)
+# 3. formatting 설정
+formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+# 4. handler 설정
+# console 출력
+stream_hander = logging.StreamHandler()
+stream_hander.setFormatter(formatter)
+logger.addHandler(stream_hander)
+# 파일 출력
+file_handler = logging.FileHandler('info.log', mode='w')
+logger.addHandler(file_handler)
+
+def log_info(req_body, res_body):
+    logging.info(req_body)
+    logging.info(res_body)
+
+async def set_body(request: Request, body: bytes):
+    async def receive() -> Message:
+        return {'type': 'http.request', 'body': body}
+    request._receive = receive
+    
+@app.middleware('http')
+async def some_middleware(request: Request, call_next):
+    req_body = await request.body()
+    await set_body(request, req_body)
+    response = await call_next(request)
+    
+    res_body = b''
+    async for chunk in response.body_iterator:
+        res_body += chunk
+    
+    task = BackgroundTask(log_info, req_body, res_body)
+    return Response(content=res_body, status_code=response.status_code, 
+        headers=dict(response.headers), media_type=response.media_type, background=task)
 
 #cors 설정
 app.add_middleware(
