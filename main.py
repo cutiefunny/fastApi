@@ -80,7 +80,7 @@ async def member():
     cursor.close()
     return result
 
-# 재기동 방법
+# 재기동 방법 
 # git pull origin master
 # 1.pkill -9 gunicorn
 # 2.cd fastapi
